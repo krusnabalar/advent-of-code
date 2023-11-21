@@ -70,7 +70,8 @@ class Day1 {
         int minTopK = 0;
         int minIdx = 0;
         for (int currSum : tally.values()) {
-            if (currSum > maxSum) maxSum = currSum;
+            if (currSum > maxSum)
+                maxSum = currSum;
             if (currSum > minTopK) {
                 topK[minIdx] = currSum;
                 minTopK = Integer.MAX_VALUE;
@@ -84,7 +85,8 @@ class Day1 {
         }
 
         int topKSum = 0;
-        for (int cal : topK) topKSum += cal;
+        for (int cal : topK)
+            topKSum += cal;
 
         System.out.printf("part 1: %d\n", maxSum);
         System.out.printf("part 2: %d\n", topKSum);
@@ -92,7 +94,7 @@ class Day1 {
 
     private static Map<Integer, Integer> fillHashMap() throws Exception {
         Map<Integer, Integer> tally = new HashMap<>();
-        int[] elfNum = new int[]{0};
+        int[] elfNum = new int[] { 0 };
         Files.readAllLines(Path.of("../input/day1.txt")).forEach(line -> {
             if (line.isEmpty()) {
                 elfNum[0]++;
