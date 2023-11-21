@@ -71,7 +71,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class Day4 {
+public class Day04 {
     public static void main(String... args) throws Exception {
         List<String> allLines = Files.readAllLines(Paths.get("../input/day4.txt"));
         int fullyOverlapping = 0, anyOverlapping = 0;
