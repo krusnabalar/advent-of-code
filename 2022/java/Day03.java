@@ -74,7 +74,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class Day3 {
+public class Day03 {
     public static void main(String... args) throws Exception {
         List<String> allLines = Files.readAllLines(Paths.get("../testInput/day3.txt"));
         int resultPart1 = 0, resultPart2 = 0;
