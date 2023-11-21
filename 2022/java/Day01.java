@@ -60,7 +60,7 @@ import java.util.*;
 import java.nio.file.Path;
 import java.nio.file.Files;
 
-class Day1 {
+class Day01 {
     public static void main(String... args) throws Exception {
         Map<Integer, Integer> tally = fillHashMap();
 

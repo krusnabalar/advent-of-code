@@ -53,7 +53,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-class Day2 {
+class Day02 {
     public static void main(String... args) throws Exception {
         List<String> allLines = Files.readAllLines(Paths.get("../input/day2.txt"));
         int myScore = 0;
