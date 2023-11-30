@@ -96,7 +96,7 @@ public class Day04 {
         }
 
         System.out.printf("part 1: %d\n", fullyOverlapping);
-        System.out.printf("part 1: %d\n", anyOverlapping);
+        System.out.printf("part 2: %d\n", anyOverlapping);
 
     }
 
