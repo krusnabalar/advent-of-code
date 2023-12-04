@@ -67,7 +67,7 @@ public class Day02 {
         }
     }
 
-    private static final String inputFilePath = "/Users/preetnakrani/IdeaProjects/advent-of-code/2023/java/preet/day02/input.txt";
+    private static final String inputFilePath = "2023/java/preet/day02/input.txt";
     public static void main(String[] args) throws FileNotFoundException {
         final Day02 day02 = new Day02();
         day02.partOne();

@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 
 public class Day01 {
 
-    private static final String inputFilePath = "";
+    private static final String inputFilePath = "2023/java/preet/day01/input.txt";
     public static void main(String[] args) throws FileNotFoundException {
         partOne();
         partTwo();
