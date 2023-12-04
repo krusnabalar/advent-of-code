@@ -1,4 +1,4 @@
-package preet.day01.helperClasses;
+package preet.commonHelpers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
