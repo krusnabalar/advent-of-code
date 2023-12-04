@@ -1,7 +1,7 @@
 package preet.day01;
 
-import preet.day01.helperClasses.FileLineReader;
-import preet.day01.helperClasses.Trie;
+import preet.commonHelpers.FileLineReader;
+import preet.day01.helpers.Trie;
 
 import java.io.FileNotFoundException;
 

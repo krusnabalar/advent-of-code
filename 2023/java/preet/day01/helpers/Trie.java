@@ -1,4 +1,4 @@
-package preet.day01.helperClasses;
+package preet.day01.helpers;
 
 import java.util.HashMap;
 import java.util.Map;
