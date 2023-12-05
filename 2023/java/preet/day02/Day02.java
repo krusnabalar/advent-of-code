@@ -6,11 +6,10 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Day02 {
 
-    private class GameState {
+    private static class GameState {
         public int red;
         public int blue;
         public int green;
@@ -21,7 +20,7 @@ public class Day02 {
 
     }
 
-    private class GameStateCreator {
+    private static class GameStateCreator {
         public GameState getGameState(String game) {
             final GameState gameState = new GameState();
             game = game.trim();
@@ -46,7 +45,7 @@ public class Day02 {
         }
     }
 
-    public class GameLine {
+    public static class GameLine {
         private final String gameLine;
         public GameLine(String line) {
             this.gameLine = line;
@@ -112,10 +111,10 @@ public class Day02 {
             final GameLine gameLine = new GameLine(line);
             List<String> gameStates = gameLine.getGameStates();
             List<GameState> gameStateList = gameStates.stream().map(gameStateCreator::getGameState).toList();
-            int maxRed = gameStateList.stream().max((a, b) -> Integer.compare(a.red, b.red)).get().red;
-            int maxGreen = gameStateList.stream().max((a, b) -> Integer.compare(a.green, b.green)).get().green;
-            int maxBlue = gameStateList.stream().max((a, b) -> Integer.compare(a.blue, b.blue)).get().blue;
-            long power = maxRed * maxGreen * maxBlue;
+            int maxRed = gameStateList.stream().max(Comparator.comparingInt(a -> a.red)).get().red;
+            int maxGreen = gameStateList.stream().max(Comparator.comparingInt(a -> a.green)).get().green;
+            int maxBlue = gameStateList.stream().max(Comparator.comparingInt(a -> a.blue)).get().blue;
+            long power = (long) maxRed * maxGreen * maxBlue;
             sum += power;
         }
         System.out.println(sum);

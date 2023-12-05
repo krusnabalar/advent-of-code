@@ -9,10 +9,8 @@ public class Day04 {
 
     private final String filePath = "2023/java/preet/day04/input.txt";
 
-    public class ScratchPlay {
+    public static class ScratchPlay {
         public int cardNum;
-        private List<Integer> cardNums = new ArrayList<>();
-        private Set<Integer> winningNums = new HashSet<>();
 
         public int numMatches = 0;
         public int numPoints = 0;
@@ -25,6 +23,7 @@ public class Day04 {
 
             final String winningNumberLine = winningNumbersAndCard.split("\\|")[0].trim();
             final String[] winningNumbers = winningNumberLine.split(" ");
+            final Set<Integer> winningNums = new HashSet<>();
             for(String num: winningNumbers) {
                 num = num.trim();
                 if (!num.isBlank() && !num.isEmpty()) {
@@ -34,6 +33,7 @@ public class Day04 {
 
             final String scratchCardNumbersLine = winningNumbersAndCard.split("\\|")[1].trim();
             final String[] scratchCardNumbers = scratchCardNumbersLine.split(" ");
+            final List<Integer> cardNums = new ArrayList<>();
             for(String num: scratchCardNumbers) {
                 num = num.trim();
                 if (!num.isBlank() && !num.isEmpty()) {
@@ -48,7 +48,7 @@ public class Day04 {
             }
 
             if (numMatches > 0) {
-                 numPoints = (int) Math.pow((double) 2, (double) numMatches-1);
+                 numPoints = (int) Math.pow(2, (double) numMatches-1);
             }
         }
     }
@@ -76,10 +76,7 @@ public class Day04 {
             final ScratchPlay sp = new ScratchPlay(line);
             scratchCards.put(sp.cardNum, sp);
         }
-        final ArrayDeque<Integer> processingQueue = new ArrayDeque<>();
-        for(Integer i: scratchCards.keySet()) {
-            processingQueue.add(i);
-        }
+        final ArrayDeque<Integer> processingQueue = new ArrayDeque<>(scratchCards.keySet());
         while(!processingQueue.isEmpty()) {
             int cardNum = processingQueue.poll();
             numScratchCards++;
