@@ -81,10 +81,8 @@ public class Day05 {
 
         String[] seedListVals = text.split("\n\n")[0].split(":")[1].trim().split(" ");
         List<Long> seedList = Arrays.stream(seedListVals).map(Long::parseLong).toList();
-        System.out.println("size: " + seedList.size());
         long min = Long.MAX_VALUE;
         for(int i = 0; i < seedList.size(); i+=2) {
-            System.out.println(i);
             for(int j = 0; j < seedList.get(i+1); j++) {
                 min = Math.min(min, search(matrix, seedList.get(i)+j, 0));
             }
