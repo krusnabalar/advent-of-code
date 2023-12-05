@@ -32,7 +32,7 @@ public class Day03 {
         day03.partTwo();
     }
 
-    public void partOne() throws FileNotFoundException {
+    public void partOne() {
         long sum = 0;
         for(int i = 0; i < matrix.size(); ) {
             String curr = matrix.get(i);
