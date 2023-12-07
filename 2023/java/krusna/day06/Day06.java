@@ -58,6 +58,6 @@ public class Day06 {
         long distance = Long.parseLong(distanceStr);
         p2 = numWaysToWin(time, distance);
 
-        System.out.printf("Part 1: %d\n", p2);
+        System.out.printf("Part 2: %d\n", p2);
     }
 }
