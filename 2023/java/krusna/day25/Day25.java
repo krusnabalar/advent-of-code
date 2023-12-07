@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Day25 {
     public static void main(String... args) throws Exception {
-        List<String> allLines = Files.readAllLines(Paths.get("../testInput/day3.txt"));
+        List<String> allLines = Files.readAllLines(Paths.get("../day25Test.txt"));
 
     }
 }
