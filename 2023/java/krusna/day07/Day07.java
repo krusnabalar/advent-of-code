@@ -63,6 +63,7 @@ public class Day07 {
         }
     }
 
+    List<String> allLines = new ArrayList<>();
     Map<String, Integer> handToBet = new HashMap<>();
     Map<String, Integer> handTypeToScore = Map.of(
             "Five of a kind", 7,
@@ -75,12 +76,9 @@ public class Day07 {
     List<Hands> hands = new ArrayList<>();
 
     public static void main(String... args) throws Exception {
-        List<String> allLines = Files.readAllLines(Paths.get("./day07.txt"));
         Day07 day07 = new Day07();
-
-        day07.storeHands(allLines);
+        day07.allLines = Files.readAllLines(Paths.get("./day07.txt"));
         day07.partOne();
-        day07.hands.clear();
         day07.partTwo();
     }
 
@@ -159,41 +157,29 @@ public class Day07 {
         hands.add(new Hands(hand, handTypeToScore.get(type), part));
     }
 
-    public void storeHands(List<String> allLines) {
+    public int getTotalWinnings(int part) {
         for (String line : allLines) {
             String[] lineArr = line.split(" ");
             // add hand and respective bet to map
             handToBet.put(lineArr[0], Integer.parseInt(lineArr[1]));
-        }
-    }
-
-    public void partOne() {
-        for (String hand : handToBet.keySet()) {
-            classifyHand(hand, 1);
+            classifyHand(lineArr[0], part);
         }
         Collections.sort(hands, new HandComparator());
         int totalWinnings = 0;
-        int handRank = 1;
-        for (Hands hand : hands) {
-            totalWinnings += handRank * handToBet.get(hand.getHand());
-            handRank++;
+        for (int i = 0; i < hands.size(); i++) {
+            totalWinnings += (i + 1) * handToBet.get(hands.get(i).getHand());
         }
+        hands.clear();
+        return totalWinnings;
+    }
 
+    public void partOne() {
+        int totalWinnings = getTotalWinnings(1);
         System.out.printf("Part 1: %d\n", totalWinnings);
     }
 
     public void partTwo() {
-        for (String hand : handToBet.keySet()) {
-            classifyHand(hand, 2);
-        }
-        Collections.sort(hands, new HandComparator());
-        int totalWinnings = 0;
-        int handRank = 1;
-        for (Hands hand : hands) {
-            totalWinnings += handRank * handToBet.get(hand.getHand());
-            handRank++;
-        }
-
+        int totalWinnings = getTotalWinnings(2);
         System.out.printf("Part 2: %d\n", totalWinnings);
     }
 }
