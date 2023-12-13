@@ -24,7 +24,7 @@ public class Day10 {
     int cols;
     int[] startingPos;
     char[][] pipeMatrix;
-    int[][] visitedPipes;
+    int[][] pipesInLoop;
     int count = 0;
 
     int directionInX[] = new int[] { -1, 0, 1, 0 };
@@ -35,15 +35,15 @@ public class Day10 {
         cols = allLines.get(0).length();
 
         pipeMatrix = new char[rows][cols];
-        visitedPipes = new int[rows][cols];
+        pipesInLoop = new int[rows][cols];
         for (int i = 0; i < rows; i++) {
             char[] line = allLines.get(i).toCharArray();
             for (int j = 0; j < cols; j++) {
                 pipeMatrix[i][j] = line[j];
-                visitedPipes[i][j] = -1;
+                pipesInLoop[i][j] = 0;
                 if (line[j] == 'S') {
                     startingPos = new int[] { i, j };
-                    visitedPipes[i][j] = 0;
+                    pipesInLoop[i][j] = 1;
                 }
             }
         }
@@ -68,6 +68,7 @@ public class Day10 {
     public int traverseLoop(int[] pipe, int dirFrom) {
         int loopSize = 1;
         char currPipe = pipeMatrix[pipe[0]][pipe[1]];
+        pipesInLoop[pipe[0]][pipe[1]] = 1;
         int nextDir = 0;
 
         while (!Arrays.equals(pipe, startingPos)) {
@@ -76,14 +77,40 @@ public class Day10 {
                     nextDir = d;
                 }
             }
+
             dirFrom = (nextDir + 2) % 4;
             pipe[0] += directionInX[nextDir];
             pipe[1] += directionInY[nextDir];
             currPipe = pipeMatrix[pipe[0]][pipe[1]];
+            pipesInLoop[pipe[0]][pipe[1]] = 1;
             loopSize++;
         }
-
         return loopSize;
+    }
+
+    public int floodFillLoop() {
+        boolean inside = false;
+        int consecutivePipe = 0;
+        int floodSize = 0;
+        for (int i = 0; i < pipesInLoop.length; i++) {
+            for (int j = 0; j < pipesInLoop[i].length; j++) {
+                if (pipesInLoop[i][j] == 0) {
+                    if (inside) {
+                        floodSize++;
+                        pipesInLoop[i][j] = 2;
+                    }
+                } else {
+                    char c = pipeMatrix[i][j];
+                    if (c == '|' || c == 'L' || c == 'J') {
+                        consecutivePipe++;
+                        inside = consecutivePipe % 2 == 1;
+                    }
+                }
+            }
+            inside = false;
+            consecutivePipe = 0;
+        }
+        return floodSize;
     }
 
     public void part1() {
@@ -93,10 +120,16 @@ public class Day10 {
         System.out.printf("Part 1: %d\n", loopSize / 2);
     }
 
+    public void part2() {
+        int floodSize = floodFillLoop();
+        System.out.printf("Part 2: %d\n", floodSize);
+    }
+
     public static void main(String... args) throws Exception {
         Day10 day10 = new Day10();
         day10.allLines = Files.readAllLines(Paths.get("./day10.txt"));
         day10.fillPipes();
         day10.part1();
+        day10.part2();
     }
 }
