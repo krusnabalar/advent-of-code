@@ -30,7 +30,7 @@ public class Day17 {
         final int rowOffset;
         final int colOffset;
 
-        Direction(int rowOffset, int colOffset) {
+        Direction (int rowOffset, int colOffset) {
             this.rowOffset = rowOffset;
             this.colOffset = colOffset;
         }
