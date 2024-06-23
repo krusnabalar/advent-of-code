@@ -1,17 +1,3 @@
-/*
- * DAY 18 NOTES:
- * - current strategy:
- *  - build a grid based on hte instructions
- *  - loop over grid and sum result
- * - problem:
- *  - grid too large
- *  - represent dug trench in a different way
- *  - essentials: width/height of array, traversing each row
- *  -
- *
- *
- */
-
 package krusna.day18;
 
 import java.nio.file.Files;
@@ -164,7 +150,6 @@ public class Day18 {
             }
         }
 
-        allInstructions.clear();
         return res;
     }
 
@@ -185,12 +170,14 @@ public class Day18 {
         storeInstructions(1);
         long res = lagoonCapacity();
         System.out.printf("Part 1: %d\n", res);
+        allInstructions.clear();
     }
 
     void part2() {
         storeInstructions(2);
         long res = lagoonCapacity();
         System.out.printf("Part 2: %d\n", res);
+        allInstructions.clear();
     }
 
     public static void main(String... args) throws Exception {
