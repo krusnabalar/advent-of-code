@@ -12,6 +12,79 @@ public class Day20 {
     String finalConjunctionModuleIdx;
     Map<String, Long> cycleLengths = new HashMap<>();
 
+
+    public class Pulse {
+        String source;
+        String destination;
+        boolean isHigh;
+
+        Pulse(String source, String destination, boolean isHigh) {
+            this.source = source;
+            this.destination = destination;
+            this.isHigh = isHigh;
+        }
+    }
+
+    public abstract class Module {
+        String name;
+        String[] destinations;
+
+        public Module(String name, String[] destinations) {
+            this.name = name;
+            this.destinations = destinations;
+        }
+
+        abstract void receivePulse(String source, boolean isHigh);
+
+        void sendPulse(boolean isHigh) {
+            for (String dest : destinations) {
+                pulseQueue.add(new Pulse(name, dest, isHigh));
+            }
+        }
+    }
+
+    public class BroadcasterModule extends Module {
+        BroadcasterModule(String name, String[] destinations) {
+            super(name, destinations);
+        }
+
+        @Override
+        void receivePulse(String source, boolean isHigh) {
+            sendPulse(isHigh);
+        }
+    }
+
+    public class FlipFlopModule extends Module {
+        boolean isOn = false;
+
+        FlipFlopModule(String name, String[] destinations) {
+            super(name, destinations);
+        }
+
+        @Override
+        void receivePulse(String source, boolean isHigh) {
+            if (!isHigh) {
+                isOn = !isOn;
+                sendPulse(isOn);
+            }
+        }
+    }
+
+    public class ConjunctionModule extends Module {
+        Map<String, Boolean> inputs = new HashMap<>();
+
+        ConjunctionModule(String name, String[] destinations) {
+            super(name, destinations);
+        }
+
+        @Override
+        void receivePulse(String source, boolean isHigh) {
+            inputs.put(source, isHigh);
+            boolean allHigh = inputs.values().stream().allMatch(b -> b);
+            sendPulse(!allHigh);
+        }
+    }
+
     void setup() {
         for (String line : allLines) {
             String[] splitInstruction = line.split(" -> ");
@@ -90,78 +163,6 @@ public class Day20 {
         return a;
     }
 
-    public class Pulse {
-        String source;
-        String destination;
-        boolean isHigh;
-
-        Pulse(String source, String destination, boolean isHigh) {
-            this.source = source;
-            this.destination = destination;
-            this.isHigh = isHigh;
-        }
-    }
-
-    abstract class Module {
-        String name;
-        String[] destinations;
-
-        Module(String name, String[] destinations) {
-            this.name = name;
-            this.destinations = destinations;
-        }
-
-        abstract void receivePulse(String source, boolean isHigh);
-
-        void sendPulse(boolean isHigh) {
-            for (String dest : destinations) {
-                pulseQueue.add(new Pulse(name, dest, isHigh));
-            }
-        }
-    }
-
-    public class BroadcasterModule extends Module {
-        BroadcasterModule(String name, String[] destinations) {
-            super(name, destinations);
-        }
-
-        @Override
-        void receivePulse(String source, boolean isHigh) {
-            sendPulse(isHigh);
-        }
-    }
-
-    public class FlipFlopModule extends Module {
-        boolean isOn = false;
-
-        FlipFlopModule(String name, String[] destinations) {
-            super(name, destinations);
-        }
-
-        @Override
-        void receivePulse(String source, boolean isHigh) {
-            if (!isHigh) {
-                isOn = !isOn;
-                sendPulse(isOn);
-            }
-        }
-    }
-
-    public class ConjunctionModule extends Module {
-        Map<String, Boolean> inputs = new HashMap<>();
-
-        ConjunctionModule(String name, String[] destinations) {
-            super(name, destinations);
-        }
-
-        @Override
-        void receivePulse(String source, boolean isHigh) {
-            inputs.put(source, isHigh);
-            boolean allHigh = inputs.values().stream().allMatch(b -> b);
-            sendPulse(!allHigh);
-        }
-    }
-
     void part1() {
         for (int i = 0; i < 1000; i++) {
             pressButton(0);
@@ -187,7 +188,7 @@ public class Day20 {
 
     public static void main(String... args) throws Exception {
         Day20 day20 = new Day20();
-        day20.allLines = Files.readAllLines(Paths.get("./2023/java/krusna/day20/day20.txt"));
+        day20.allLines = Files.readAllLines(Paths.get("./day20.txt"));
         day20.setup();
         day20.part1();
         day20.part2();
