@@ -13,28 +13,6 @@ public class Day21 {
     int squareSize;
     char[][] grid;
 
-    public class Pos {
-        int row, col;
-
-        public Pos(int row, int col) {
-            this.row = row;
-            this.col = col;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Pos pos = (Pos) o;
-            return row == pos.row && col == pos.col;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(row, col);
-        }
-    }
-
     void setup() {
         squareSize = allLines.size();
         grid = new char[squareSize][squareSize];
@@ -127,9 +105,31 @@ public class Day21 {
 
     public static void main(String... args) throws Exception {
         Day21 day21 = new Day21();
-        day21.allLines = Files.readAllLines(Paths.get("./2023/java/krusna/day21/day21.txt"));
+        day21.allLines = Files.readAllLines(Paths.get("./day21.txt"));
         day21.setup();
         day21.part1();
         day21.part2();
+    }
+}
+
+class Pos {
+    int row, col;
+
+    public Pos(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pos pos = (Pos) o;
+        return row == pos.row && col == pos.col;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, col);
     }
 }
